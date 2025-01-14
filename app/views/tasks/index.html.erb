@@ -1,0 +1,19 @@
+<h1>My Tasks:</h1>
+<ul class="list-group">
+  <% @tasks.each do |task| %>
+    <li class="list-group-item d-flex justify-content-start align-items-center">
+
+      <%= form_with model: task, method: :patch, class: 'form-check-inline' do |form| %>
+        <%= form.check_box :completed, { class: 'form-check-input' }, true, false %>
+      <% end %>
+
+      <%= link_to task.title, task_path(task), class: 'ms-2' %>
+
+      <%= form_with url: destroy_task_path(task), method: :delete, style: 'display: inline-block;' do |form| %>
+        <%= form.submit 'Delete', class: 'btn btn-danger btn-sm', style: 'margin-left: 10px;' %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to 'Add New Task', new_task_path, class: 'btn btn-primary mt-3' %>
